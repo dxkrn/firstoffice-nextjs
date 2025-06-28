@@ -1,4 +1,8 @@
-import Image from "next/image";
+'use client';
+
+import CityCard from "../components/CityCard";
+import { cities } from "../data/cities.mock";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function CitiesSection() {
     return (
@@ -15,31 +19,20 @@ export default function CitiesSection() {
                     Explore All City
                 </a>
             </div>
-            <div className="swiper w-full">
-                <div className="swiper-wrapper">
-
-                    <div className="swiper-slide !w-fit first-of-type:pl-[calc((100%-1130px-60px)/2)] last-of-type:pr-[calc((100%-1130px-60px)/2)]">
-                        <a href="city-details.html" className="card">
-                            <div className="relative flex shrink-0 w-[230px] h-[300px] rounded-[20px] overflow-hidden">
-                                <div className="relative flex flex-col justify-end w-full h-full p-5 gap-[2px] bg-[linear-gradient(180deg,_rgba(0,0,0,0)_49.87%,_rgba(0,0,0,0.8)_100%)] z-10">
-                                    <h3 className="font-bold text-xl leading-[30px] text-white">
-                                        Jakarta Pusat
-                                    </h3>
-                                    <p className="text-white">189 Offices</p>
-                                </div>
-                                <Image
-                                    width={1920}
-                                    height={1080}
-                                    src="/assets/images/thumbnails/thumbnails-2.png"
-                                    className="absolute w-full h-full object-cover"
-                                    alt="thumbnails"
-                                />
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        </section>
+            <Swiper
+                spaceBetween={20}
+                slidesOffsetAfter={128}
+                slidesOffsetBefore={128}
+                slidesPerView="auto"
+                direction="horizontal"
+                className="w-full"
+            >
+                {cities.map((city) => (
+                    <SwiperSlide key={city.id} className="!w-[230px] shrink-0">
+                        <CityCard city={city} />
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </section >
     );
 }
