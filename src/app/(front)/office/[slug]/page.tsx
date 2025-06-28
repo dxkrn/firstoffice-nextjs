@@ -8,11 +8,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 type Props = {
-    params: { slug: string }
+    params: Promise<{ slug: string }>
 };
 
-export default function OfficeSpaceDetailPage({ params }: Props) {
-    const office = officeSpaces.find((space) => space.slug == params.slug);
+export default async function OfficeSpaceDetailPage({ params }: Props) {
+    const { slug } = await params;
+
+    const office = officeSpaces.find((space) => space.slug == slug);
 
     if (!office) return notFound();
 
